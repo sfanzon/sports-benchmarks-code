@@ -5,6 +5,8 @@ Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0).
 
 Full licence terms: https://creativecommons.org/licenses/by-nc/4.0/legalcode
 
+If you find the notebook or the paper useful, please cite the paper.
+
 Fry, J., Stevenson, F., Fanzon, S., Serbera, J.-P., & Smales, T. (forthcoming).
 *Quantifying reasonable performance expectations in (non-traditional) sports.*
 

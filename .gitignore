@@ -1,0 +1,5 @@
+.DS_Store
+~$*
+
+# Quarto render output
+**/_site/

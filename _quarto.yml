@@ -1,0 +1,47 @@
+project:
+  type: website
+  output-dir: docs
+  render:
+    - analysis.qmd
+  resources:
+    - .nojekyll
+    - "!_site/**"
+    - data/**
+    - citation.bib
+    - scripts/**
+    - figures/**
+
+website:
+  title: "Sports benchmarks R notebook"
+  site-url: https://www.silviofanzon.com/sports-benchmarks-code/
+  search:
+    location: navbar
+    type: overlay
+  navbar:
+    search: true
+    pinned: false
+    background: black
+    foreground: "#E8E8E8"
+    right:
+      - text: "GitHub repository"
+        href: https://github.com/sfanzon/sports-benchmarks-code
+  page-footer:
+    center:
+      - text: "GitHub repository"
+        href: https://github.com/sfanzon/sports-benchmarks-code
+      - text: "Contact"
+        href: https://www.silviofanzon.com/contact
+
+format:
+  html:
+    output-file: index.html
+    toc: true
+    toc-title: On this page
+    toc-location: right
+    code-overflow: wrap
+    theme:
+      light: [flatly, theme-custom-light.scss]
+      dark: [darkly, theme-custom-dark.scss]
+    fig-align: center
+    fig-cap-location: bottom
+    link-external-icon: false

@@ -5,8 +5,12 @@ Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0).
 
 Full licence terms: https://creativecommons.org/licenses/by-nc/4.0/legalcode
 
-Please cite the accompanying paper, *Quantifying reasonable performance
-expectations in (non-traditional) sports*. The [BibTeX citation](citation.bib)
-is available in this repository. Please credit Silvio Fanzon and John Fry as
-the notebook authors.
-Third-party data remain subject to their source terms.
+Fry, J., Stevenson, F., Fanzon, S., Serbera, J.-P., & Smales, T. (forthcoming).
+*Quantifying reasonable performance expectations in (non-traditional) sports.*
+
+Paper versions: (I will replace `ARXIV_ID` and `DOI` when available.)
+
+- [arXiv version](https://arxiv.org/abs/ARXIV_ID)
+- [published version](https://doi.org/DOI)
+
+[BibTeX citation](citation.bib)

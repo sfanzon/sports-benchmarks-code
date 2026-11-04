@@ -3,3 +3,6 @@
 
 # Quarto render output
 **/_site/
+
+/.quarto/
+**/*.quarto_ipynb

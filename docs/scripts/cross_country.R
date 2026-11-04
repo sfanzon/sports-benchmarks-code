@@ -39,23 +39,43 @@ for (i in seq_len(B)) {
 c(mean = mean(team_scores_normal),
   quantile(team_scores_normal, c(0.025, 0.975)))
 
-# Rank diagnostics and tie sensitivity reported in Section 3.3
+# Discrete-uniform comparison
+# Set the seed for reproducibility
+set.seed(seed)
+
+# Simulate B team scores by drawing seven distinct ranks and summing the lowest five
+team_scores_uniform <- replicate(B, {
+  ranks <- sample.int(n, 7, replace = FALSE)
+  sum(sort(ranks)[1:5])
+})
+
+# Report the mean and endpoints of the central 95% score interval
+c(mean = mean(team_scores_uniform),
+  quantile(team_scores_uniform, c(0.025, 0.975)))
+
+# Rank diagnostics
+# Initialise the counts of inadmissible ranks and teams containing ties
 out_of_range_entries <- 0
 teams_with_ties <- 0
 
 for (i in seq_len(B)) {
+  # Round the seven ranks for this simulated team
   rounded_ranks <- round(ranks[i, ])
+  # Count individual ranks outside the admissible range
   out_of_range_entries <- out_of_range_entries +
     sum(rounded_ranks < 1 | rounded_ranks > n)
+  # Count this team once if any rounded ranks are duplicated
   teams_with_ties <- teams_with_ties +
     as.integer(anyDuplicated(rounded_ranks) > 0)
 }
 
+# Report the counts and the percentage of teams containing ties
 c(inadmissible_rounded_ranks = out_of_range_entries,
   total_ranks = length(ranks),
   teams_with_ties = teams_with_ties,
   percentage_of_teams_with_ties = 100 * teams_with_ties / B)
 
+# Forward staggering
 forward_stagger <- function(team_ranks, n) {
   corrected <- round(sort(team_ranks))
   k <- length(corrected)
@@ -73,6 +93,7 @@ forward_stagger <- function(team_ranks, n) {
   corrected
 }
 
+# Simulate scores with ties resolved
 team_scores_forward <- numeric(B)
 
 for (i in seq_len(B)) {
@@ -80,6 +101,7 @@ for (i in seq_len(B)) {
   team_scores_forward[i] <- sum(corrected_ranks[1:5])
 }
 
+# Compare the original and corrected benchmarks
 original_interval <- quantile(team_scores_normal, c(0.025, 0.975))
 corrected_interval <- quantile(team_scores_forward, c(0.025, 0.975))
 
@@ -94,6 +116,7 @@ data.frame(
   row.names = NULL
 )
 
+# Check the 32 observed team classifications
 ncaa_scores <- read.csv("data/ncaa_2025_team_scores.csv", fileEncoding = "UTF-8")
 observed_scores <- ncaa_scores$score
 
@@ -107,30 +130,6 @@ corrected_classification <- classify_scores(observed_scores, corrected_interval)
 
 c(teams_checked = length(observed_scores),
   changed_classifications = sum(original_classification != corrected_classification))
-
-# Discrete-uniform comparison
-set.seed(seed)
-team_scores_uniform <- replicate(B, {
-  ranks <- sample.int(n, 7, replace = FALSE)
-  sum(sort(ranks)[1:5])
-})
-
-c(mean = mean(team_scores_uniform), variance = var(team_scores_uniform),
-  quantile(team_scores_uniform, c(0.025, 0.975)))
-
-# An independent check: the expected jth smallest sampled rank is j*(n+1)/8.
-c(exact_mean = sum(1:5) * (n + 1) / 8,
-  simulated_mean = mean(team_scores_uniform),
-  mean_monte_carlo_se = sd(team_scores_uniform) / sqrt(B))
-
-# Table 4 benchmarks
-data.frame(
-  model = c("Normal", "Discrete uniform without replacement"),
-  mean = c(mean(team_scores_normal), mean(team_scores_uniform)),
-  lower = c(quantile(team_scores_normal, 0.025), quantile(team_scores_uniform, 0.025)),
-  upper = c(quantile(team_scores_normal, 0.975), quantile(team_scores_uniform, 0.975)),
-  row.names = NULL
-)
 
 # Software versions
 sessionInfo()

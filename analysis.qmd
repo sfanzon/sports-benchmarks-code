@@ -32,7 +32,18 @@ Paper versions:  (I will Replace `ARXIV_ID` and `DOI` when available)
 - [published version](https://doi.org/DOI)
 
 
+The paper uses probabilistic models of round-robin and rankings-based
+competitions to quantify what counts as reasonable performance given the level
+of competition and the variability of results. It applies these models to the
+Chess Candidates Tournament and the NCAA cross-country championships to assess
+observed performances against those benchmarks. It also examines how competition
+formats and scoring rules shape whether teammates' performances reinforce one
+another or come at each other's expense.
+
 The source of this notebook and the full replication package, including R scripts, data and figures, are available in the [GitHub repository](https://github.com/sfanzon/sports-benchmarks-code).
+
+
+## Contents
 
 This replication package contains:
 
